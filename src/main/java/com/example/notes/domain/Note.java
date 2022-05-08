@@ -1,28 +1,36 @@
 package com.example.notes.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Table(name = "note")
 @Entity
-@Setter
-@Getter
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Note {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "CREATED_DATE")
-    private LocalDateTime createdDate;
+    @Column(name = "created_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Date createdDate;
 
-    private LocalDateTime updatedDate;
+    @Column(name = "update_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Date updatedDate;
 
+    @Column(name = "title", columnDefinition = "VARCHAR(60) DEFAULT NULL")
     private String title;
 
+    @Column(name = "content", columnDefinition = "VARCHAR(60) DEFAULT NULL")
     private String content;
 
-    private Boolean deleted;
+    @Column(name = "deleted", columnDefinition = "bit(1) DEFAULT 0")
+    private boolean deleted = false;
 }
