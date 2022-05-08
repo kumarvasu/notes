@@ -8,8 +8,20 @@ import org.springframework.stereotype.Component;
 public class NoteToNoteDtoConverter {
 
     public NoteDto convert(Note note){
-        NoteDto noteDto = new NoteDto();
-        noteDto.setNoteId(note.getId());
-        return noteDto;
+        return NoteDto.builder()
+                .noteId(note.getId())
+                .title(note.getTitle())
+                .content(note.getContent())
+                .deleted(note.isDeleted()).build();
     }
+
+    public Note convert(NoteDto noteDto) {
+        return Note.builder()
+                .id(noteDto.getNoteId())
+                .title(noteDto.getTitle())
+                .content(noteDto.getContent())
+                .deleted(noteDto.isDeleted()).build();
+    }
+
+
 }
