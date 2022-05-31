@@ -5,9 +5,8 @@ import com.example.notes.service.NoteService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/note")
@@ -20,4 +19,13 @@ public class NoteController {
     public NoteDto create(){
         return noteService.create();
     }
+
+    @GetMapping(value = "/fetch/{noteId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public NoteDto fetch(@PathVariable Long noteId){
+        return noteService.fetch(noteId);
+    }
+
+    /*public NoteDto update(@Validated @RequestBody NoteDto noteDto){
+
+    }*/
 }
